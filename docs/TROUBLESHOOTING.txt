@@ -1,0 +1,26 @@
+TROUBLESHOOTING — PASTE AS PLAIN TEXT
+
+Symptoms & fixes:
+
+1) Dropdown empty
+   • Check DevTools → Network for `kontact/api/recipients.php` (200 expected).
+   • Ensure <script src="kontact/assets/js/multiple_recipients.js"> is correct for your folder.
+   • Admin → Settings → Recipient Mode = Multiple and JSON is valid.
+
+2) Submit button does nothing
+   • Ensure required fields have values or add `novalidate` for a quick test.
+   • Verify the submit button is inside the <form>.
+   • Watch the Console for page-level JS errors.
+
+3) PHP “Undefined array key …” in send_mail.php
+   • Use the included send_mail.php which defines safe fallbacks.
+   • Admin Settings provide recipients; you no longer need recipient1..3 in the file config.
+
+4) DB errors on insert
+   • Ensure database credentials in `config.inc.php` are valid.
+   • Run the schema: mysql -u <dbuser> -p <dbname> < kontact/docs/db/schema.sql
+   • `kontacts` table: If your table lacks `user_id`, the shipped send_mail.php auto-detects and inserts without it.
+
+5) Theming not applied
+   • Admin → Settings → Email Theme must match a file under `/kontact/themes/`.
+   • Theme should set `$email_body` (preferred) or an HTML `$message`.

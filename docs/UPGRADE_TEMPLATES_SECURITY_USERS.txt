@@ -1,0 +1,21 @@
+UPGRADE: Templates, Security, Users
+
+templates.php
+- Fixed array syntax parse error.
+- Added live Preview (uses iframe srcdoc with sample variables substituted).
+- CRUD with CSRF; auto-creates kontact_templates.
+
+security.php
+- Fixed MariaDB LIMIT/OFFSET binding issue by inlining sanitized integers.
+- Auto-prunes expired blocks on load; added "Prune expired now" button.
+- Blocklist CRUD + Audit feed with pagination; auto-creates tables.
+
+users.php
+- Added "Send Reset" to email a password reset link to an admin.
+- New table: kontact_password_resets (auto-created).
+- New endpoint: /kontact/admin/reset.php to set a new password without login.
+- Keeps role support (admin/owner), enable/disable, set password, delete (not last admin).
+
+Notes
+- All pages use shared header/footer via /kontact/admin/inc/layout.php.
+- No schema drops; only CREATE TABLE IF NOT EXISTS.

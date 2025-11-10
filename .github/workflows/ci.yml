@@ -1,0 +1,44 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  php:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer:v2
+      - name: Install dependencies
+        run: |
+          if [ -f composer.json ]; then
+            composer install --no-interaction --prefer-dist
+          fi
+      - name: Static analysis (phpstan) if present
+        run: |
+          if [ -f vendor/bin/phpstan ]; then
+            vendor/bin/phpstan analyse --no-progress
+          else
+            echo "phpstan not found; skipping"
+          fi
+      - name: Coding style (php-cs-fixer/phpcbf) if present
+        run: |
+          if [ -f vendor/bin/php-cs-fixer ]; then
+            vendor/bin/php-cs-fixer --version
+          elif [ -f vendor/bin/phpcbf ]; then
+            vendor/bin/phpcbf --version
+          else
+            echo "style tool not found; skipping"
+          fi
+      - name: Tests (phpunit) if present
+        run: |
+          if [ -f vendor/bin/phpunit ]; then
+            vendor/bin/phpunit --testdox
+          else
+            echo "phpunit not found; skipping"
+          fi
+      - name: Composer security advisories (if composer.json exists)
+        run: |
+          if [ -f composer.json ]; then
+            composer audit --no-interaction || true
+          fi

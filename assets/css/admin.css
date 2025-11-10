@@ -1,0 +1,882 @@
+:root {
+    --gap: 12px;
+    --radius: 12px;
+    --header-h: 40px;
+}
+
+html, body {
+	max-width: 100%;
+	overflow-x: hidden;
+}
+
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Arial, sans-serif;
+    line-height: 1.45;
+    margin: 0;
+    background: #0b1020;
+    color: #e6ecff;
+}
+
+.header {
+    display: flex;
+    height: var(--header-h);
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: rgba(15, 21, 48, 0.5);
+    backdrop-filter: blur(4px);
+	position: fixed !important;
+	top: 0 !important;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    border-bottom: 1px solid #1e2a5a;
+}
+
+.header-spacer {
+	height: var(--header-h);
+}
+
+.header h1 {
+    font-size: 18px;
+    margin: 0;
+    font-weight: 700;
+}
+
+.header nav a {
+    margin-left: 16px;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    background: #121a3a;
+    border: 1px solid #23306b;
+    color: #e6ecff;
+}
+
+.header nav a.active {
+	font-weight: bold;
+}
+
+.container {
+	margin-top: calc(var(--header-h) + 5px) !important;
+    max-width: 980px;
+    margin: 24px auto;
+    padding: 0 20px;
+}
+
+.container, .card, .table, .table-scroll {
+	max-width: 100%;
+	box-sizing: border-box;
+}
+
+.card {
+    background: #0f1530;
+    border: 1px solid #1e2a5a;    
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+    border-radius: var(--radius);
+    padding: 18px;
+    margin-bottom: var(--gap);
+}
+
+.url-logo {
+	position: relative !important;
+	top: 2px !important;
+	right: 12px !important;
+	display: inline-block !important;
+	height: 45px !important;
+    background: transparent !important;
+    padding: 24px !important;
+}
+
+.card h2 {
+    margin: 0 0 10px 0;
+    font-size: 16px;
+}
+
+.input-row {
+    display: flex;
+    gap: var(--gap);
+    flex-wrap: wrap;
+    margin: 10px 0;
+}
+
+.action-row {
+	flex-wrap: wrap !important;
+	min-width: 0;
+}
+
+.input-row {
+	align-items: center;
+	min-width: 0;
+}
+
+.input-row .btn {
+	align-self: center;
+}
+
+.input-row label {
+    flex: 1;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.input-row input,
+.input-row select,
+.input-row textarea {
+    margin-top: 6px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #263469;
+    background: #0b1020;
+    color: #e6ecff;
+}
+
+.input-row .url-field {
+	flex: 1 1 900px;     /* prefers to grow big; shrinks if needed */
+	min-width: 520px;    /* roomy on desktop */
+	max-width: 55%;
+	width: auto;
+}
+
+.recipient-mode {
+	min-width: 5%;
+	max-width: 10%;
+	width: auto;
+}
+
+.g-api-field {
+	min-width: 35%;
+	max-width: 48%;
+	width: auto;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid #2a3a7f;
+    background: #162057;
+    color: #e6ecff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn.danger {
+    border-color: #7f2a2a;
+    background: #571616;
+}
+
+.btn.secondary {
+    background: #101739;
+    border-color: #22306b;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+	table-layout: fixed;
+}
+
+.table-scroll {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.table th,
+.table td {
+	word-break: break-word;
+	overflow-wrap: anywhere;
+    border-bottom: 1px solid #1e2a5a;
+    padding: 10px;
+    text-align: left;
+}
+
+.table td:nth-child(5), /* User-Agent */
+.table th:nth-child(5),
+.table td:nth-child(6), /* Detail */
+.table th:nth-child(6) {
+	word-break: break-all;
+	overflow-wrap: anywhere;
+}
+
+.flash {  
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%); 
+	background: #e2ffe2;
+	border: 1px solid #bbf7d0;
+	color: #003220;
+	font-weight: bold;
+	padding: 10px;
+	border-radius: 6px;
+	margin: 12px 0;
+	transition: opacity 0.5s ease-out;
+	width: auto; 
+	height: auto;
+	border: 4px solid #003220!important;
+	border-radius: 10px;
+	z-index: 1; 
+}
+
+.notice {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.footer {
+    opacity: 0.6;
+    text-align: center;
+    padding: 20px;
+}
+
+.actions {
+    margin-top: 14px;
+    display: flex; align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn:focus {
+    outline: 2px solid #8fb3ff;
+    outline-offset: 2px;
+}
+
+.btn:hover {
+    filter: brightness(1.15);
+}
+
+button.btn,
+input.btn {
+    display: inline-block;
+}
+
+.btn-basic {
+    display: inline-block;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #ffffff;
+    background: #2b2b2b;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.btn-basic:hover {
+    filter: brightness(1.15);
+}
+
+/* Glass buttons tuned to the dark theme (#0b1020 / #0f1530) */
+.glass-button {
+  /* Theme-tuned tints (adjust if you change palette) */
+  --gb-bg: rgba(22, 32, 87, 0.35);        /* indigo glass tint over #0f1530 */
+  --gb-bg-hover: rgba(22, 32, 87, 0.5);
+  --gb-bg-active: rgba(22, 32, 87, 0.42);
+  --gb-border: rgba(255, 255, 255, 0.22);  /* outer border */
+  --gb-inner: rgba(255, 255, 255, 0.08);   /* inner highlight */
+  --gb-shadow: rgba(0, 0, 0, 0.45);        /* drop shadow */
+  --gb-text: #e6ecff;
+
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 14px;
+	border-radius: 12px;
+	color: var(--gb-text);
+	text-decoration: none;
+	font-weight: 600;
+	line-height: 1;
+	cursor: pointer;
+
+	background:
+      linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)) ,
+      var(--gb-bg);
+	border: 1px solid var(--gb-border);
+	-webkit-backdrop-filter: blur(10px) saturate(160%);
+	backdrop-filter: blur(10px) saturate(160%);
+
+	box-shadow:
+      0 8px 18px var(--gb-shadow),
+      inset 0 0 0 1px var(--gb-inner);
+	text-shadow: 0 1px 2px rgba(0,0,0,0.25);
+
+	transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+	will-change: transform, box-shadow, background;
+	transform: translateZ(0); /* GPU nudge */
+}
+
+.glass-button:hover {
+	background:
+      linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.02)),
+      var(--gb-bg-hover);
+	box-shadow:
+      0 3px 6px rgba(0,0,0,0.5),
+      inset 0 0 0 1px rgba(0,0,0,0.12);
+	transform: translateY(-2px);
+}
+
+.glass-button:active {
+	background:
+      linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+      var(--gb-bg-hover);
+	box-shadow:
+      0 12px 26px rgba(0,0,0,0.5),
+      inset 0 0 0 1px rgba(255,255,255,0.12);
+	transform: translateY(0);
+}
+
+.glass-button:focus-visible {
+	outline: none;
+	box-shadow:
+      0 8px 18px var(--gb-shadow),
+      0 0 0 2px rgba(99, 102, 241, 0.45),   /* outer ring (indigo) */
+      inset 0 0 0 1px rgba(0,0,0,0.12);
+}
+
+.glass-button.active,
+.glass-button[aria-current="page"] {
+	background:
+      linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
+      var(--gb-bg-hover);
+	box-shadow:
+      0 12px 26px rgba(0,0,0,0.5),
+      inset 0 0 0 1px rgba(255,255,255,0.12);
+	transform: translateY(0);
+}
+
+.glass-button:disabled,
+.glass-button[aria-disabled="true"] {
+	opacity: 0.55;
+	pointer-events: none;
+	transform: none;
+}
+
+/* Icon sizing when using lucide or similar */
+.glass-button .icon,
+.glass-button svg {
+	width: 16px;
+	height: 16px;
+	flex: 0 0 auto;
+}
+
+/* Fallback when backdrop-filter is unsupported */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass-button {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.06), rgba(0,0,0,0.02)),
+      rgba(15, 21, 48, 0.9); /* lean harder on theme base color */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-button { transition: none; transform: none; }
+  .glass-button:hover { transform: none; }
+}
+
+.code-block {
+    border: 1px solid #485278;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 10px 0;
+}
+
+.code-block pre {
+    margin: 6px 0 0 0;
+    overflow: auto;
+}
+
+.sorted-asc::after {
+    content: " \25B2";
+}
+
+.sorted-desc::after {
+    content: " \25BC";
+}
+
+#snotifications {
+    -webkit-animation: cssAnimation 5s forwards; 
+    animation: cssAnimation 5s forwards;
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+details.card.collapsible > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+}
+
+details.card.collapsible > summary::-webkit-details-marker { display: none; }
+details.card.collapsible > summary::after {
+  content: "▸";
+  transition: transform 0.2s ease;
+  margin-left: auto;
+  transform: rotate(0deg);
+}
+
+details.card.collapsible[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+details.card.collapsible
+.table-scroll {
+	margin-top: 6px;
+}
+
+@media (max-width: 480px) {
+  .input-row label {
+    min-width: 160px;
+  }
+}
+
+/* Use fixed layout so column percentages are respected */
+.users-table {
+	table-layout: fixed;
+	width: 100%;
+}
+
+/* Cells: keep on one line and ellipsize to stay within column */
+.users-table th, .users-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Actions cell content stays inline */
+.users-table td.actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+.users-table td.actions form {
+	display: flex !important;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+}
+
+.users-table td.actions input[type="password"] {
+	width: 220px;
+	max-width: 100%;
+	flex: 0 0 auto;
+}
+
+.audit-toolbar {
+  display:flex; justify-content:flex-end; align-items:center;
+  gap:8px; margin:0 0 8px 0;
+}
+
+.audit-toolbar select {
+  padding:6px 8px; border:1px solid #d1d5db1a; border-radius:6px;
+  background:#0b1020; color:#e6ecff;
+}
+
+.audit-toolbar .btn { height:36px; line-height:1; padding:8px 12px; }
+
+@media (max-width: 720px) {
+  .input-row .url-field { min-width: 0; }
+}
+
+.readme {
+	width: 85% !important;
+}
+
+/* Hide the marker in Chrome/Safari */
+summary::-webkit-details-marker {
+  display: none;
+}
+
+details summary::marker {
+  list-style-image: url('../images/cir-collapse.svg');
+}
+
+/* Or, for more control and animation possibilities: */
+details summary {
+  list-style: none; /* Remove default marker */
+}
+
+details summary::before {
+  content: '';
+  display: inline-block;
+  width: 20px; /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+  background: url('../images/cir-collapse.svg');
+  background-size: contain;
+  margin-right: 10px; /* Space between the icon and summary text */
+  transition: transform 0.3s ease; /* Smooth rotation transition */
+}
+
+details[open] summary::before {
+  background: url('../images/cir-collapse.svg') no-repeat center center;
+  background-size: contain;
+  transform: rotate(90deg); /* Rotate clockwise 90 degrees */
+}
+/* Visually hide the checkbox but keep it accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Hide the native arrow indicator for the summary */
+.custom-details summary {
+  list-style: none; /* For WebKit browsers */
+}
+.custom-details summary::-webkit-details-marker {
+  display: none; /* For other browsers */
+}
+
+/* Style the summary to look like a checkbox and label */
+.custom-details summary::before {
+  content: "☐"; /* Unchecked state */
+  display: inline-block;
+  margin-right: 0.5em;
+}
+
+/* Change the "checkbox" icon when the input is checked */
+#toggle-details:checked ~ .custom-details summary::before {
+  content: "☑"; /* Checked state */
+}
+
+/* Set the open attribute when the input is checked */
+#toggle-details:checked ~ .custom-details {
+  /* This part is not needed because the browser handles the toggle */
+}
+
+
+/* Button normalization: make <a>.btn, <button>.btn, and submit inputs render identically */
+a.btn, button.btn, input[type=submit].btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  font: inherit;
+  line-height: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  /* Keep the base .btn padding and border-width consistent */
+  padding: 10px 14px;
+  border-width: 1px;
+}
+
+/* === Column width variables (tunable) === */
+
+/* Logs */
+:root {
+  --logs-col-file: 25%;
+  --logs-col-size: 25%;
+  --logs-col-modified: 25%;
+  --logs-col-actions: 25%;
+}
+
+#manage-logs table.sortable th:nth-child(1),
+#manage-logs table.sortable td:nth-child(1) { width: var(--logs-col-file); }
+#manage-logs table.sortable th:nth-child(2),
+#manage-logs table.sortable td:nth-child(2) { width: var(--logs-col-size); }
+#manage-logs table.sortable th:nth-child(3),
+#manage-logs table.sortable td:nth-child(3) { width: var(--logs-col-modified); }
+#manage-logs table.sortable th:nth-child(4),
+#manage-logs table.sortable td:nth-child(4) { width: var(--logs-col-actions); white-space: nowrap; }
+
+/* Templates */
+:root {
+  --templates-col-id: 5%;
+  --templates-col-name: 20%;
+  --templates-col-subject: 35%;
+  --templates-col-updated: 10%;
+  --templates-col-actions: 30%;
+}
+#existing-templates table.table th:nth-child(1),
+#existing-templates table.table td:nth-child(1) { width: var(--templates-col-id); }
+#existing-templates table.table th:nth-child(2),
+#existing-templates table.table td:nth-child(2) { width: var(--templates-col-name); }
+#existing-templates table.table th:nth-child(3),
+#existing-templates table.table td:nth-child(3) { width: var(--templates-col-subject); }
+#existing-templates table.table th:nth-child(4),
+#existing-templates table.table td:nth-child(4) { width: var(--templates-col-updated); white-space: nowrap; }
+
+/* Security → Blocklist */
+:root {
+  --blocklist-col-id: 10%;
+  --blocklist-col-ip: 25%;
+  --blocklist-col-reason: 25%;
+  --blocklist-col-created: 10%;
+  --blocklist-col-expires: 10%;
+  --blocklist-col-actions: 20%;
+}
+#blocklist table.table th:nth-child(1),
+#blocklist table.table td:nth-child(1) { width: var(--blocklist-col-id); }
+#blocklist table.table th:nth-child(2),
+#blocklist table.table td:nth-child(2) { width: var(--blocklist-col-ip); }
+#blocklist table.table th:nth-child(3),
+#blocklist table.table td:nth-child(3) { width: var(--blocklist-col-reason); }
+#blocklist table.table th:nth-child(4),
+#blocklist table.table td:nth-child(4) { width: var(--blocklist-col-created); }
+#blocklist table.table th:nth-child(5),
+#blocklist table.table td:nth-child(5) { width: var(--blocklist-col-expires); white-space: nowrap; }
+
+/* Security → Recent Events */
+:root {
+  --events-col-id: 5%;
+  --events-col-when: 10%;
+  --events-col-type: 7%;
+  --events-col-ip: 7%;
+  --events-col-ua: 40%;
+  --events-col-detail: 10%;
+  --events-col-actions: 21%;
+}
+#recent-security-events table.table th:nth-child(1),
+#recent-security-events table.table td:nth-child(1) { width: var(--events-col-id); }
+#recent-security-events table.table th:nth-child(2),
+#recent-security-events table.table td:nth-child(2) { width: var(--events-col-when); }
+#recent-security-events table.table th:nth-child(3),
+#recent-security-events table.table td:nth-child(3) { width: var(--events-col-type); }
+#recent-security-events table.table th:nth-child(4),
+#recent-security-events table.table td:nth-child(4) { width: var(--events-col-ip); }
+#recent-security-events table.table th:nth-child(5),
+#recent-security-events table.table td:nth-child(5) { width: var(--events-col-ua); }
+#recent-security-events table.table th:nth-child(6),
+#recent-security-events table.table td:nth-child(6) { width: var(--events-col-detail); white-space: nowrap; }
+
+/* Tweak these vars to taste; keep Actions at 0% so it hugs content */
+:root {
+  --messages-col-1: 2%;   /* ID (or first col) */
+  --messages-col-2: 9%;  /* Created */
+  --messages-col-3: 9%;  /* Name */
+  --messages-col-4: 15%;  /* Sub */
+  --messages-col-5: 15%; /* Email */
+  --messages-col-6: 32%;  /* Message */
+  --messages-col-7: 7%; /* User IP */
+  --messages-col-8: 5%;  /* User-ID */
+  --messages-col-9: 6%; /* Actions */
+}
+
+/* Map widths to the 9 columns in Recent Messages */
+#recent-messages table.table th:nth-child(1),
+#recent-messages table.table td:nth-child(1) { width: var(--messages-col-1); }
+
+#recent-messages table.table th:nth-child(2),
+#recent-messages table.table td:nth-child(2) { width: var(--messages-col-2); }
+
+#recent-messages table.table th:nth-child(3),
+#recent-messages table.table td:nth-child(3) { width: var(--messages-col-3); }
+
+#recent-messages table.table th:nth-child(4),
+#recent-messages table.table td:nth-child(4) { width: var(--messages-col-4); }
+
+#recent-messages table.table th:nth-child(5),
+#recent-messages table.table td:nth-child(5) { width: var(--messages-col-5); }
+
+#recent-messages table.table th:nth-child(6),
+#recent-messages table.table td:nth-child(6) { width: var(--messages-col-6); }
+
+/* Long text columns get soft wrapping so they don’t blow the layout */
+#recent-messages table.table th:nth-child(7),
+#recent-messages table.table td:nth-child(7) {
+  width: var(--messages-col-7);
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+#recent-messages table.table th:nth-child(8),
+#recent-messages table.table td:nth-child(8) {
+  width: var(--messages-col-8);
+  word-break: break-all;
+  overflow-wrap: anywhere;
+}
+
+/* Actions stays compact and never wraps */
+#recent-messages table.table th:nth-child(9),
+#recent-messages table.table td:nth-child(9) {
+  width: var(--messages-col-9);
+  white-space: nowrap;
+}
+
+
+/* Columns in users.php */
+:root {
+	--users-col-id: 3%;
+	--users-col-email: 13%;
+	--users-col-role: 6%;
+	--users-col-status: 6%;
+	--users-col-created: 12.5%;
+	--users-col-lastlogin: 12.5%;
+	--users-col-actions: 47%;
+	}
+
+/* Map each column to its variable; variables may be % or px */
+.users-table col.col-id        { width: var(--users-col-id); }
+.users-table col.col-email     { width: var(--users-col-email); }
+.users-table col.col-role      { width: var(--users-col-role); }
+.users-table col.col-status    { width: var(--users-col-status); }
+.users-table col.col-created   { width: var(--users-col-created); }
+.users-table col.col-lastlogin { width: var(--users-col-lastlogin); }
+.users-table col.col-actions   { width: var(--users-col-actions); }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 100; /* Hide the default icon */
+  filter: invert(1); /* Inverts the colors, making a black icon white */
+}
+
+input[type="date"] {
+    position: relative; /* Needed for positioning the pseudo-element */
+    padding-right: 30px; /* Adjust to make space for the icon */
+}
+
+input[type="date"]::after {
+    content: '\1F4C5'; /* Unicode for a calendar icon (or other icon) */
+    font-size: 20px; /* Adjust size */
+    position: absolute;
+    right: 5px; /* Adjust position */
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Allows clicks to pass through to the input */
+    color: white; /* Adjust color */
+}
+
+
+/* MOBILE HEADER */
+.menu-toggle {
+  display: none;
+  font-size: 22px;
+  line-height: 1;
+  padding: 8px 10px;
+  margin-left: 8px;
+  border-radius: var(--radius);
+  background: #121a3a;
+  border: 1px solid #23306b;
+  color: #e6ecff;
+}
+
+.header nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .menu-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  .header h1 { font-size: 18px; margin-right: auto; }
+  .header nav {
+    width: 100%;
+    margin-top: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  /* collapsed by default via [data-open] attribute */
+  #admin-nav[data-open="0"] { display: none; }
+  #admin-nav[data-open="1"] { display: flex; }
+  .header nav a {
+    margin: 6px 0;
+    text-align: left;
+  }
+}
+
+
+/* MOBILE FIXES: let header flow, no overflow, full-width menu */
+@media (max-width: 768px) {
+  .header { 
+    position: static !important;
+    height: auto;
+    align-items: stretch;
+    padding: 12px 12px;
+  }
+  .header-spacer { display: none; }
+}
+
+/* Language Flags */
+.lang-flag {
+   display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+/* Flag image size */
+.lang-flag img.flag {
+  height: 16px;
+  display: block;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.1);
+}
+
+/* Flag stays pinned top-left of the header bar */
+.header-flag {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 9999;
+}
+header, .topbar .admin {
+  position: relative;
+  padding-left: 56px;
+}
+
+/* Language menu: white dropdown */
+.lang-menu {
+  background: rgba(10,15,30,0.9);
+  color: #fff;
+  border: 1px solid rgba(0,0,0,.12);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.24);
+  padding: 4px;
+  z-index: 1000;
+}
+
+.lang-menu ul {
+  color: #fff;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+}
+
+.lang-menu .lang-item {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+
+.lang-menu .lang-item:hover {
+  color: #0a0f1e;
+  background: #f2f3f5;
+}
+
+.lang-menu .lang-item[aria-current="true"] .label {
+  font-weight: 600;
+}

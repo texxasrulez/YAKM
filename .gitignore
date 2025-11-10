@@ -1,0 +1,18 @@
+# Runtime / writable paths
+/storage/logs/
+/storage/cache/
+/storage/tmp/
+/storage/sessions/
+
+# Local overrides
+*.local.php
+/config/config.inc.php
+
+# Composer / vendor (if applicable)
+/vendor/
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

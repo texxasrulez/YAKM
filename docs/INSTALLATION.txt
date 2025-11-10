@@ -1,0 +1,36 @@
+INSTALLATION — PASTE AS PLAIN TEXT
+
+1) Upload the `kontact/` folder next to your site’s index.html.
+   - Do not place files outside `kontact/` (drop-in friendly).
+
+2) Configure database credentials:
+   Edit: `kontact/config/config.inc.php`
+   Set: DATABASE_HOST, DATABASE_USER, DATABASE_PASS, DATABASE_NAME
+
+3) Initialize database tables:
+   Option A (browser): visit `/kontact/admin/setup.php`, create first admin (auto-creates tables).
+   Option B (CLI): run schema directly
+     mysql -u <dbuser> -p <dbname> < kontact/docs/db/schema.sql
+
+4) Secure setup:
+   After success, `setup.php` is auto-deleted (in latest builds). If you still see it, delete it manually:
+     rm -f kontact/admin/setup.php
+
+5) Admin login:
+   `/kontact/admin/login.php`
+
+6) Public page wiring:
+   - In `<head>` add:
+       <script src="kontact/assets/js/multiple_recipients.js"></script>
+   - Use one `<select name="recipient" id="recipient">` in your form.
+   - Form action should post to `kontact/send_mail.php`.
+
+7) reCAPTCHA (optional):
+   - Add the widget to your form.
+   - In Admin → Settings, set your Site & Secret keys.
+   - Server-side verification runs only if both keys and response are present.
+
+8) Test:
+   - Load your form page. Ensure `kontact/api/recipients.php` returns 200 in Network tab.
+   - Submit a test; you should be redirected to `/thank_you.html`.
+   - Check mail logs if delivery is delayed.

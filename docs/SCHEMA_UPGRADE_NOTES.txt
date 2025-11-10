@@ -1,0 +1,17 @@
+SCHEMA UPGRADE NOTES — PASTE AS PLAIN TEXT
+
+Goal: make DB logging resilient across upgrades and unknown prior schemas.
+
+- `send_mail.php` now uses DATABASE_TABLE (default: `kontacts`).
+- On each send, it will:
+  1) CREATE TABLE IF NOT EXISTS with the expected columns.
+  2) ALTER TABLE ... ADD COLUMN IF NOT EXISTS for: id, subject, email, message, user_ip, user_id, created_at.
+     (MariaDB supports IF NOT EXISTS; on MySQL 8, IF NOT EXISTS is supported for ADD COLUMN in 8.0.29+.)
+  3) INSERT the row, using user_id only if the column exists.
+
+If your existing table had different column names, this will add the needed ones
+without dropping or renaming existing columns/data.
+
+If you prefer a one-time manual migration, run:
+  SHOW CREATE TABLE <your_table>;
+  -- compare and add missing columns to match the new schema.

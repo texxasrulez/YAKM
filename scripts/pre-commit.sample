@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Sample pre-commit hook to block personal identifiers and strip EXIF from images.
+# Install: place this file at .git/hooks/pre-commit and chmod +x it.
+set -euo pipefail
+
+has_rg=$(command -v rg || true)
+has_exiftool=$(command -v exiftool || true)
+
+if [ -n "${has_rg}" ]; then
+  if rg -n --hidden --ignore-case -e 'genesworld\.net|gene@' . --glob '!*vendor/*' --glob '!*storage/logs/*' ; then
+    echo "✖ Potential personal data found (genesworld.net or gene@...). Commit aborted."
+    exit 1
+  fi
+fi
+
+if [ -n "${has_exiftool}" ]; then
+  changed_images=$(git diff --cached --name-only | grep -E '\.(png|jpe?g)$' || true)
+  if [ -n "${changed_images}" ]; then
+    echo "Stripping EXIF from images..."
+    while IFS= read -r f; do
+      [ -f "$f" ] || continue
+      exiftool -q -q -all= "$f" >/dev/null || true
+      git add "$f"
+    done <<< "$changed_images"
+  fi
+fi

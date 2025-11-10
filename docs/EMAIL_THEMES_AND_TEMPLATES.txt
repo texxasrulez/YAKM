@@ -1,0 +1,40 @@
+EMAIL THEMES & DB TEMPLATES — PASTE AS PLAIN TEXT
+
+A) PHP THEMES
+Location: `/kontact/themes/*.php`
+
+At send time, `send_mail.php` does:
+  1) Defines common variables for themes:
+     $site_name, $site_url, $site_logo, $form_title, $form_name,
+     $name, $email, $subject, $message (plain text), $message (alias),
+     $date, $user_ip
+     Helper: clean_string($str)
+
+  2) Includes `/themes/<Email Theme>` based on Admin → Settings → Email Theme.
+
+  3) Reads output in this order:
+     - If `$email_body` is a string containing `<html>`, use it.
+     - Else if `$message` is a string containing `<html>`, use it.
+     - Else fall back to a default HTML layout.
+
+Guidelines for theme authors:
+  - Prefer setting `$email_body` to full HTML (with <html>).
+  - You can rely on the variables listed above.
+
+B) DB TEMPLATES (optional)
+- Manage at Admin → Templates.
+- Each has name, subject, and body_html.
+- To use a specific template in code:
+  $tpl = $db->fetchOne('SELECT subject, body_html FROM kontact_templates WHERE name=?', ['contact_notification']);
+  if ($tpl) {
+     $subject = $tpl['subject'];
+     $email_body = strtr($tpl['body_html'], [
+       '{{site_name}}'    => $site_name,
+       '{{form_name}}'    => $form_name,
+       '{{name}}'         => htmlspecialchars($name),
+       '{{email}}'        => htmlspecialchars($email),
+       '{{subject}}'      => htmlspecialchars($subject),
+       '{{message_html}}' => nl2br(htmlspecialchars($message)),
+     ]);
+  }
+- You can combine themes + templates by placing the template body inside your theme layout.

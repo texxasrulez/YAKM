@@ -1,0 +1,14 @@
+SECURITY HARDENING — PASTE AS PLAIN TEXT
+
+• Auth: session-based; passwords hashed with Argon2id (or bcrypt fallback).
+• CSRF: hidden token on all admin forms.
+• Blocklist: requests from blocked IPs are diverted to /spammer.html when `Security::isBlocked()` is used.
+• Rate limiting: record failures in `kontact_audit` and enforce thresholds (e.g., >5 fails in 10min triggers alert).
+• reCAPTCHA: server verify only when both secret and response present (no warnings while testing).
+• No inline CSS: all admin styles in `/kontact/assets/css/`.
+• Drop-in safe: no absolute paths outside the project folder.
+
+Recommended extras:
+• Enable SMTP delivery with authenticated sender (improves DMARC/DKIM alignment).
+• Add a plaintext part alongside HTML for best deliverability.
+• Add a honeypot + min-submit-time check and record the event to the audit table.

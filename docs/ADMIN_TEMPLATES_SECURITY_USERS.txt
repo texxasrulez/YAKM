@@ -1,0 +1,21 @@
+ADMIN • Templates
+Path: /kontact/admin/templates.php
+
+- Manages `kontact_templates` (name, subject, body_html).
+- Create, edit, delete, duplicate. CSRF-protected. Uses shared header/footer.
+- Table is created automatically if missing.
+
+ADMIN • Security
+Path: /kontact/admin/security.php
+
+- Manages `kontact_blocklist` (IP, reason, optional expiry) and shows `kontact_audit` events.
+- Add/Update block; Remove block; Block IP directly from an audit row.
+- Both tables are created automatically if missing.
+- Pagination on audit feed (25 per page).
+
+ADMIN • Users
+Path: /kontact/admin/users.php
+
+- Manages `kontact_admins` (email, password_hash, role, is_active).
+- Create admin, set password, enable/disable, delete (cannot delete last active admin).
+- Table is created automatically if missing.
