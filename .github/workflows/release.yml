@@ -1,8 +1,16 @@
-name: release
+name: Release
+
 on:
   push:
     tags:
       - 'v*.*.*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -11,14 +19,23 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Compute names
+        id: names
+        run: |
+          echo "REPO_NAME=${GITHUB_REPOSITORY##*/}" >> $GITHUB_OUTPUT
+          echo "ARCHIVE_NAME=${GITHUB_REPOSITORY##*/}-${GITHUB_REF_NAME}.tar.gz" >> $GITHUB_OUTPUT
+
       - name: Create clean source tarball (honors export-ignore)
         run: |
-          ARCHIVE_NAME="YAKM-${GITHUB_REF_NAME}.tar.gz"
-          git archive --format=tar --prefix=YAKM/ "${GITHUB_REF_NAME}" | gzip > "${ARCHIVE_NAME}"
-          sha256sum "${ARCHIVE_NAME}" > SHA256SUMS
+          git archive --format=tar --prefix="${{ steps.names.outputs.REPO_NAME }}/" HEAD             | gzip -9 > "${{ steps.names.outputs.ARCHIVE_NAME }}"
+          ls -lah "${{ steps.names.outputs.ARCHIVE_NAME }}"
+          sha256sum "${{ steps.names.outputs.ARCHIVE_NAME }}" > SHA256SUMS
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          generate_release_notes: true
           files: |
-            YAKM-*.tar.gz
+            ${{ steps.names.outputs.ARCHIVE_NAME }}
             SHA256SUMS
