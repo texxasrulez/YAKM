@@ -1,5 +1,12 @@
 # YAKM (Yet Another Kontact Manager) — Secure, Themed Contact Form + Admin
 
+[![Github License](https://img.shields.io/github/license/texxasrulez/YAKM?style=plastic&logo=github&label=License&labelColor=blue&color=coral)](https://github.com/texxasrulez/YAKM/LICENSE)
+[![GitHub Stars](https://img.shields.io/github/stars/texxasrulez/YAKM?style=plastic&logo=github&label=Stars&labelColor=blue&color=deepskyblue)](https://github.com/texxasrulez/YAKM/stargazers)
+[![GitHub Issues](https://img.shields.io/github/issues/texxasrulez/YAKM?style=plastic&logo=github&label=Issues&labelColor=blue&color=aqua)](https://github.com/texxasrulez/YAKM/issues)
+[![GitHub Contributors](https://img.shields.io/github/contributors/texxasrulez/YAKM?style=plastic&logo=github&logoColor=white&label=Contributors&labelColor=blue&color=orchid)](https://github.com/texxasrulez/YAKM/graphs/contributors)
+[![GitHub Forks](https://img.shields.io/github/forks/texxasrulez/YAKM?style=plastic&logo=github&logoColor=white&label=Forks&labelColor=blue&color=darkorange)](https://github.com/texxasrulez/YAKM/forks)
+[![Donate Paypal](https://img.shields.io/badge/Paypal-Money_Please!-blue.svg?style=plastic&labelColor=blue&color=forestgreen&logo=paypal)](https://www.paypal.me/texxasrulez)
+
 This is what my original simple kontact manager has evolved into.
 
 A drop‑in PHP contact/email system with a clean admin panel, themes + templates, reCAPTCHA Enterprise, rate‑limiting, CSRF, blocklist + firewall feed, and maintenance tools.
