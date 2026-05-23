@@ -1,0 +1,14 @@
+AUTO-REPLY — PASTE AS PLAIN TEXT
+
+Enable in Admin → Settings → Auto-reply:
+  • Enable auto-reply to sender
+  • Template name (defaults to `auto_reply_ack`)
+  • Throttle (minutes): prevents repeated replies to the same sender within the window
+
+Behavior:
+  - After a successful send to your recipient, Kontact looks up a template named
+    in the Templates screen. If found, it uses that subject/body with token replacement:
+      {{site_name}}, {{form_name}}, {{name}}, {{email}}, {{subject}}, {{message_html}}
+  - If no template exists, it uses a simple default message.
+  - It logs to `kontact_audit` with event_type = 'auto_reply' and detail = sender's email.
+    Throttle blocks repeats within the configured minutes.

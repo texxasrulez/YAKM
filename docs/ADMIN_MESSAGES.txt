@@ -1,0 +1,15 @@
+ADMIN MESSAGES — PASTE AS PLAIN TEXT
+
+Path: /kontact/admin/messages.php
+
+• Lists messages from the table named by DATABASE_TABLE (default: kontacts).
+• Auto-detects available columns and displays them (works with legacy tables without id/created_at).
+• Pagination: 25 per page, newest first if created_at or id exists.
+• Delete: each row has a Delete button (CSRF-protected).
+  - If an id column exists, deletes by id (LIMIT 1).
+  - Otherwise deletes by matching the visible fields posted back (LIMIT 1).
+• All output is HTML-escaped to prevent XSS.
+
+TIP: If you want stronger delete keys, add an `id BIGINT AUTO_INCREMENT PRIMARY KEY` to your table:
+  ALTER TABLE kontacts ADD COLUMN id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY FIRST;
+The page will automatically start deleting by id when it exists.

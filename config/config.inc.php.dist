@@ -1,0 +1,72 @@
+<?php
+/**
+ * YAKM configuration template (.dist)
+ *
+ * Copy to config.inc.php and edit values. UPPERCASE keys are canonical.
+ * This template returns the array and also populates $GLOBALS['cfg']
+ * for code paths that expect a global config.
+ */
+
+$__cfg = array (
+  'ALLOW_MAIL_FUNCTION' => '0',
+  'AUDIT_RETENTION_DAYS' => '30',
+  'AUTO_REPLY_ENABLE' => '0',
+  'AUTO_REPLY_TEMPLATE' => 'auto_reply_ack',
+  'CACHE_DIR' => (__DIR__ . '/../storage/cache'),
+  'DATABASE_HOST' => '127.0.0.1',
+  'DATABASE_NAME' => 'yakm',
+  'DATABASE_PASS' => 'CHANGE_ME',
+  'DATABASE_TABLE' => 'kontacts',
+  'DATABASE_USER' => 'yakm_user',
+  'DB_CHARSET' => 'utf8mb4',
+  'DB_COLLATION' => 'utf8mb4_unicode_ci',
+  'DB_HOST' => '127.0.0.1',
+  'DB_NAME' => 'yakm',
+  'DB_PASS' => 'CHANGE_ME',
+  'DB_PORT' => '3306',
+  'DB_USER' => 'yakm_user',
+  'EMAIL_THEME' => 'stylish_theme.php',
+  'ENABLE_SMTP' => '0',
+  'FORM_NAME' => 'Contact',
+  'FORM_TITLE' => 'Visitor',
+  'FROM_EMAIL' => 'webmaster@domain.com',
+  'FROM_NAME' => '',
+  'LOG_DIR' => (__DIR__ . '/../storage/logs'),
+  'LOG_MAX_SIZE_BYTES' => '',
+  'LOG_RETENTION_DAYS' => '',
+  'MAX_LINKS' => '3',
+  'MIN_SUBMIT_SECONDS' => '5',
+  'RECAPTCHA_API_KEY' => '',
+  'RECAPTCHA_MODE' => '',
+  'RECAPTCHA_PROJECT_ID' => '',
+  'RECAPTCHA_SECRET' => '',
+  'RECAPTCHA_SITE' => '',
+  'RECIPIENTS_JSON' => '[]',
+  'RECIPIENT_MODE' => 'single',
+  'SITE_LOGO' => '',
+  'SITE_NAME' => 'Your App Name',
+  'SITE_URL' => 'https://www.domain.com',
+  'SMTP_HOST' => '',
+  'SMTP_PASS' => 'CHANGE_ME',
+  'SMTP_PORT' => '587',
+  'SMTP_SECURE' => 'tls',
+  'SMTP_USER' => '',
+  'SPAM_KEYWORDS' => '',
+  'SUBMIT_SECRET' => 'CHANGE_ME',
+  'SUBMIT_THROTTLE_PER_MIN' => '5',
+  'SUBMIT_THROTTLE_WINDOW_MIN' => '10',
+  'WEBMASTER_EMAIL' => 'webmaster@domain.com',
+  'autoresponder' => '',
+  'encryption' => '',
+  'from_email' => '',
+  'from_name' => '',
+  'host' => '',
+  'pass' => '',
+  'port' => '',
+  'queue' => '',
+  'submit_secret' => '',
+  'user' => '',
+);
+
+$GLOBALS['cfg'] = $__cfg;
+return $__cfg;

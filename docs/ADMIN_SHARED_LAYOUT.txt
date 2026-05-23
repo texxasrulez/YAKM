@@ -1,0 +1,26 @@
+
+ADMIN SHARED LAYOUT
+
+Files:
+- /kontact/admin/inc/layout.php
+  Provides two helpers:
+    Kontact\Admin\header_nav($title, $active)
+    Kontact\Admin\footer()
+
+Usage:
+  require_once __DIR__ . '/inc/layout.php';
+  Kontact\Admin\header_nav('Page Title','messages');  // active: dashboard|messages|templates|security|users|settings|smtp
+  ... page content ...
+  Kontact\Admin\footer();
+
+All admin pages should include the layout so the nav stays consistent and edits are in one place.
+
+MESSAGES PAGE WARNING FIX
+
+The pagination now uses:
+  $page = max(1, (int)($_GET['page'] ?? 1));
+so it no longer emits a PHP warning when 'page' is missing.
+
+SETUP RENAME
+
+On successful setup, kontact/admin/setup.php automatically renames itself to kontact/admin/setup.php.sample so you can re-enable it later by renaming back to setup.php.

@@ -1,0 +1,18 @@
+RECIPIENT DROPDOWN JS — PASTE AS PLAIN TEXT
+
+Goal: auto-populate <select name="recipient"> from admin-configured JSON.
+
+Include in your page <head>:
+  <script src="kontact/assets/js/multiple_recipients.js"></script>
+
+In the form:
+  <select name="recipient" id="recipient" required></select>
+
+How it works:
+  - The script locates itself and infers the base path (works for custom folder names).
+  - It fetches `api/recipients.php` and inserts options with email as the value.
+
+Optional placeholder:
+  <select name="recipient" id="recipient" required>
+    <option value="">— Select a recipient —</option>
+  </select>

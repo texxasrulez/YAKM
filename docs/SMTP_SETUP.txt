@@ -1,0 +1,18 @@
+SMTP SETUP — PASTE AS PLAIN TEXT
+
+1) In Admin → Settings → SMTP:
+   - Enable SMTP
+   - Set From Email / From Name (use a domain you control with SPF/DKIM/DMARC)
+   - Host, Port, User, Password, Secure (tls/ssl/none)
+
+2) Delivery logic:
+   - When enabled, kontact/lib/Mailer.php connects to your SMTP and sends a
+     multipart/alternative email (plain-text + HTML).
+   - If SMTP fails, it falls back to PHP mail().
+
+3) Common ports:
+   - 587 (TLS), 465 (SSL), 25 (plain or with STARTTLS depending on server).
+
+4) Test:
+   - Save settings, submit a test message from your form.
+   - Check Admin email inbox and server mail logs if needed.

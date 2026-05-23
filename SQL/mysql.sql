@@ -1,0 +1,100 @@
+-- Kontact schema (idempotent)
+CREATE TABLE IF NOT EXISTS `kontact_admins` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(190) NOT NULL UNIQUE,
+  `password_hash` VARCHAR(255) NOT NULL,
+  `role` VARCHAR(32) NOT NULL DEFAULT 'admin',
+  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `last_login_at` TIMESTAMP NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `kontact_password_resets` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `admin_id` BIGINT NOT NULL,
+  `token` VARCHAR(64) NOT NULL UNIQUE,
+  `expires_at` TIMESTAMP NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX (`admin_id`),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `kontact_settings` (
+  `key` VARCHAR(128) NOT NULL,
+  `value` TEXT NULL,
+  PRIMARY KEY (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `kontact_templates` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL UNIQUE,
+  `subject` VARCHAR(255) NOT NULL,
+  `body_html` MEDIUMTEXT NOT NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `kontact_blocklist` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `ip` VARCHAR(64) NOT NULL,
+  `reason` VARCHAR(255) NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `expires_at` TIMESTAMP NULL,
+  UNIQUE KEY `uniq_ip` (`ip`),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `kontact_audit` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `event_type` VARCHAR(64) NOT NULL,
+  `ip` VARCHAR(64) NULL,
+  `user_agent` VARCHAR(255) NULL,
+  `detail` VARCHAR(255) NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `kontacts` (
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(255) NULL,
+  `subject` VARCHAR(255) NULL,
+  `email` VARCHAR(255) NULL,
+  `message` MEDIUMTEXT NULL,
+  `user_ip` VARCHAR(64) NULL,
+  `user_id` VARCHAR(64) NULL,
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Idempotent default settings (will not override if keys already exist)
+INSERT IGNORE INTO `kontact_settings`(`key`,`value`) VALUES
+('WEBMASTER_EMAIL',''),
+('RECIPIENT_MODE','single'),
+('RECIPIENTS_JSON',''),
+('SITE_NAME',''),
+('SITE_URL',''),
+('SITE_LOGO',''),
+('FORM_TITLE',''),
+('FORM_NAME',''),
+('EMAIL_THEME',''),
+('ENABLE_SMTP','0'),
+('SMTP_HOST',''),
+('SMTP_PORT','587'),
+('SMTP_USER',''),
+('SMTP_PASS',''),
+('SMTP_SECURE','tls'),
+('FROM_EMAIL',''),
+('FROM_NAME',''),
+('RECAPTCHA_SITE',''),
+('RECAPTCHA_SECRET',''),
+('RECAPTCHA_PROJECT_ID',''),
+('RECAPTCHA_API_KEY',''),
+('SUBMIT_SECRET',''),
+('MIN_SUBMIT_SECONDS','4'),
+('RL_ENABLE','0'),
+('RL_WINDOW_MIN','10'),
+('RL_MAX_PER_IP','5'),
+('RL_NOTIFY','0'),
+('ALLOW_MAIL_FUNCTION','0');

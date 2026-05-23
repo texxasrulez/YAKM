@@ -1,0 +1,74 @@
+<?php
+declare(strict_types=1); // strict_types must be the very first statement
+
+// Including necessary files exactly as in other admin pages
+require_once __DIR__ . '/../lib/auth.php'; // Including authentication
+Kontact\require_admin(); // Ensuring admin access
+require_once __DIR__ . '/../lib/bootstrap.php'; // Bootstrap setup
+ // Including layout
+
+// Manually load the configuration from config.inc.php
+$configFile = '../config/config.inc.php';
+if (!is_file($configFile)) {
+    die('Configuration file not found.');
+}
+
+$config = include($configFile);
+
+// CAPTCHA Settings Configuration
+
+// Check if form is submitted and save settings
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Update CAPTCHA settings in config
+    $captchaType = $_POST['captcha_type'];
+    $captchaKey = $_POST['captcha_key'];
+    $captchaSecret = $_POST['captcha_secret'];
+
+    // Save settings to config file
+    file_put_contents($configFile, "<?php
+return array(
+    'captcha_type' => '$captchaType',
+    'captcha_key' => '$captchaKey',
+    'captcha_secret' => '$captchaSecret',
+);", LOCK_EX);
+    echo "Settings updated successfully!";
+}
+
+// Fetch current settings from config
+$captchaType = $config['captcha_type'] ?? 'google';
+$captchaKey = $config['captcha_key'] ?? '';
+$captchaSecret = $config['captcha_secret'] ?? '';
+
+// Render header and nav using the layout functions with the correct namespace for header_nav
+Kontact\Admin\header_nav('Captcha Settings', 'security');
+?>
+
+<div class="card">
+    <div class="card-header">
+        <h2>Configure CAPTCHA Settings</h2>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="form-group">
+                <label for="captcha_type">Captcha Type:</label>
+                <select name="captcha_type" id="captcha_type" class="form-control">
+                    
+    <option value="google" <?php echo $captchaType === 'google' ? 'selected' : ''; ?>>Google reCAPTCHA</option>
+    <option value="hcaptcha" <?php echo $captchaType === 'hcaptcha' ? 'selected' : ''; ?>>hCaptcha</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="captcha_key">Captcha Site Key:</label>
+                <input type="text" name="captcha_key" class="form-control" value="<?php echo htmlspecialchars($captchaKey); ?>" />
+            </div>
+
+            <div class="form-group">
+                <label for="captcha_secret">Captcha Secret Key:</label>
+                <input type="text" name="captcha_secret" class="form-control" value="<?php echo htmlspecialchars($captchaSecret); ?>" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Settings</button>
+        </form>
+    </div>
+</div>

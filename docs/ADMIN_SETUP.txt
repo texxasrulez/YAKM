@@ -1,0 +1,22 @@
+ADMIN SETUP — PASTE AS PLAIN TEXT
+
+1) Edit /kontact/config/config.inc.php with your DB credentials.
+2) Visit /kontact/admin/setup.php to create tables and the first admin.
+   • On success, the setup script deletes itself and shows a link to login.
+3) Login at /kontact/admin/login.php and configure Settings.
+
+Wiring blocklist/audit into send_mail.php:
+Add at the top after config is loaded:
+    require_once __DIR__ . '/lib/bootstrap.php';
+    require_once __DIR__ . '/lib/Security.php';
+    $__db = new \Kontact\Database($GLOBALS['cfg']);
+    if (\Kontact\Security::isBlocked($__db)) { header('Location: ../../spammer.html'); exit; }
+
+On validation/captcha fails, record an audit event:
+    \Kontact\Security::recordFailure($__db, 'form_fail', 'validation or captcha');
+
+Optionally notify webmaster on thresholds:
+    if (\Kontact\Security::tooManyFailures($__db, 'form_fail', 5, 10)) {
+        @mail(\Kontact\cfg('WEBMASTER_EMAIL'), 'Kontact: suspicious activity',
+              'Multiple failed submissions within 10 minutes from IP ' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+    }

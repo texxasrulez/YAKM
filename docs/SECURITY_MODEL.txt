@@ -1,0 +1,7 @@
+SECURITY MODEL — PASTE AS PLAIN TEXT
+- Session login; Argon2id if available; BCRYPT fallback.
+- CSRF tokens on all admin forms.
+- Blocklist enforced via Security::isBlocked() (add include to send_mail.php).
+- Audit table for failures; can add rate-limiting easily.
+- No absolute paths; everything relative under /kontact.
+- Setup self-deletes after success, per your explicit exception.

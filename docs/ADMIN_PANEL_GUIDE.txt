@@ -1,0 +1,45 @@
+ADMIN PANEL GUIDE — PASTE AS PLAIN TEXT
+
+Access: /kontact/admin/
+
+1) Users
+   - Create additional admin accounts.
+   - Passwords are hashed using Argon2id if available, else bcrypt.
+
+2) Settings
+   Site
+     • Site Name — used in email headers/templates.
+     • Site URL — used for links in emails.
+     • Site Logo Path — path starting with `/` to an image accessible by recipients.
+     • Form Title — small label like "Visitor".
+     • Form Name — like "Contact".
+
+   Email
+     • Webmaster Email — default recipient if nothing else matches.
+     • Additional Emails — optional comma-separated list (informational).
+     • Email Theme — picks a file from `/kontact/themes/*_theme.php` used to render outgoing HTML email.
+
+   Recipients
+     • Recipient Mode — Single or Multiple.
+     • Recipients (JSON) — only used in Multiple mode; the JS fills your `<select name="recipient">` from this JSON.
+       Example:
+       [
+         {"label":"Webmaster","email":"admin@domain.com"},
+         {"label":"Alto","email":"alto@domain.com"}
+       ]
+
+   reCAPTCHA
+     • Site Key / Secret Key — turn on verification. Leave blank while testing.
+
+   Suspicious Activity
+     • Toggle to email webmaster when thresholds are exceeded (when wired).
+
+3) Templates
+   - Create & edit named templates (DB-stored), independent of PHP themes.
+   - Use “Import samples” (shown only when there are zero templates) to seed example templates:
+       • contact_notification — sent to Webmaster
+       • auto_reply_ack — example auto-reply
+
+4) Security
+   - Blocklist: add/remove IPs. When `Security::isBlocked()` is used in mail flow, blocked IPs are redirected to `/spammer.html`.
+   - Audit log: failures can be recorded to support rate-limiting thresholds.

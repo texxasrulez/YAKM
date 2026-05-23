@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=75%, initial-scale=1">
+  <title>Kontact — Secure, Themed Contact Form + Admin</title>
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+  <header class="header">
+    <h1>Kontact — Secure, Themed Contact Form + Admin</h1>
+    <nav>
+      <a href="#top" class="btn">Top</a>
+    </nav>
+  </header>
+<br />
+<br />
+  <main class="container readme">
+   <div class="card">
+    <div class="card"><p>A drop‑in PHP contact/email system with a clean admin panel, themes + templates, reCAPTCHA Enterprise, rate‑limiting, CSRF, blocklist + firewall feed, and maintenance tools.</p>
+<p>This README is a practical, install‑and‑go guide. No fluff, just the knobs you need.</p>
+</div>
+<div class="card">
+	<h2>1) Requirements</h2>
+<ul>
+  <li>PHP <strong>8.1+</strong> with: <code>pdo_mysql</code>, <code>mbstring</code>, <code>openssl</code>, <code>json</code>, <code>curl</code></li>
+  <li>MySQL/MariaDB</li>
+  <li>Web server (Apache/nginx) with HTTPS</li>
+  <li>Outbound SMTP access to your mail provider</li>
+  <li>(Optional) Cron for scheduled maintenance</li>
+</ul>
+</div>
+<div class="card">
+	<h2>2) Install</h2>
+<ol>
+  <li>Unzip the project into your web root (or a vhost), e.g.</li>
+</ol>
+<ul>
+  <li>Public URL: <code>https://yourdomain/kontact/</code></li>
+  <li>Admin: <code>https://yourdomain/kontact/admin/</code></li>
+</ul>
+<ol>
+  <li>Create a database and a user with full privileges.</li>
+  <li>Visit <strong><code>kontact/admin/setup.php</code></strong> in the browser and follow the steps.</li>
+</ol>
+<ul>
+  <li>The installer creates the tables and writes base config.</li>
+  <li>On success it renames itself to <code>setup.php.sample</code>.</li>
+</ul>
+<ol>
+  <li>Log in to <strong><code>kontact/admin/</code></strong>.</li>
+</ol>
+<p>If you deploy without running the installer, import the schema from <code>kontact/sql/schema.sql</code> and set DB creds in <code>kontact/config.php</code> (or the environment), then set app options in <strong>Admin → Settings</strong>.</p>
+</div>
+<div class="card">
+	<h2>3) Add to your site (frontend)</h2>
+<p>Place this in your contact page (update the site key). The JS obtains a reCAPTCHA Enterprise token and injects it into a hidden field before submit.</p>
+<div class="code-block"><pre><code>&lt;script src=&quot;https://www.google.com/recaptcha/enterprise.js?render=YOUR_SITE_KEY&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;kontact/assets/js/anti_bot.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;kontact/assets/js/form_tokens.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;kontact/assets/js/multiple_recipients.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;kontact/assets/js/recaptcha_enterprise.js&quot;&gt;&lt;/script&gt;
+
+&lt;form action=&quot;kontact/send_mail.php&quot; method=&quot;post&quot; id=&quot;kontact-form&quot; novalidate data-min-wait-seconds=&quot;5&quot;&gt;
+  &lt;label for=&quot;recipient&quot;&gt;Choose Recipient&lt;/label&gt;
+  &lt;select name=&quot;recipient_id&quot; id=&quot;recipient&quot; required&gt;&lt;/select&gt;
+
+  &lt;input type=&quot;text&quot;   name=&quot;name&quot;    id=&quot;name&quot;    placeholder=&quot;Name (Required)&quot;    required&gt;
+  &lt;input type=&quot;email&quot;  name=&quot;email&quot;   id=&quot;email&quot;   placeholder=&quot;Email (Required)&quot;   required&gt;
+  &lt;input type=&quot;text&quot;   name=&quot;subject&quot; id=&quot;subject&quot; placeholder=&quot;Subject (Required)&quot; required&gt;
+  &lt;textarea name=&quot;message&quot; id=&quot;message&quot; placeholder=&quot;Message (Required)&quot; required&gt;&lt;/textarea&gt;
+
+  &lt;input type=&quot;hidden&quot; name=&quot;recaptcha_token&quot; value=&quot;&quot;&gt;
+  &lt;button type=&quot;submit&quot;&gt;Send Message&lt;/button&gt;
+&lt;/form&gt;</code></pre></div>
+<p>If you use a visible widget instead, remove the hidden token and load the v2 widget script. Enterprise recommended.</p>
+</div>
+<div class="card">
+	<h2>4) reCAPTCHA Enterprise</h2>
+<p><strong>Client (frontend)</strong></p>
+<ul>
+  <li>Load the Enterprise loader with your <em>Site Key</em>:</li>
+</ul>
+<div class="code-block"><pre><code>  &lt;script src=&quot;https://www.google.com/recaptcha/enterprise.js?render=YOUR_SITE_KEY&quot;&gt;&lt;/script&gt;</code></pre></div>
+<ul>
+  <li><code>kontact/assets/js/recaptcha_enterprise.js</code> calls:</li>
+</ul>
+<div class="code-block"><pre><code>  grecaptcha.enterprise.execute(&#x27;YOUR_SITE_KEY&#x27;, {action: &#x27;submit&#x27;})
+    .then(token =&gt; { document.querySelector(&#x27;[name=recaptcha_token]&#x27;).value = token; });</code></pre></div>
+<p><strong>Server (backend)</strong></p>
+<ul>
+  <li>Set your Google <strong>API key</strong> in <strong>Admin → Settings → reCAPTCHA</strong> (or <code>KCFG(&#x27;RECAPTCHA_API_KEY&#x27;)</code>).</li>
+  <li><code>send_mail.php</code> posts the token to <code>recaptchaenterprise.googleapis.com</code> and enforces:</li>
+  <li>token validity, hostname match, expected action <code>&quot;submit&quot;</code></li>
+  <li>risk score threshold (configurable)</li>
+  <li>Typical errors you may see in logs:</li>
+  <li><code>captcha_fail:missing-token</code> → hidden field empty; ensure the loader is present and JS ran</li>
+  <li><code>captcha_fail:http-code:403</code> → API key/key restrictions not valid for reCAPTCHA Enterprise</li>
+  <li><code>invalid key type</code> → using a non‑Enterprise key with the Enterprise API</li>
+</ul>
+</div>
+<div class="card">
+	<h2>5) Email, Themes &amp; Templates</h2>
+<ul>
+  <li>Configure SMTP and defaults under <strong>Admin → Settings → Email</strong>.</li>
+  <li>Choose an <strong>Email Theme</strong> (wrapper) for admin and auto‑reply.</li>
+  <li>This requires a dark image for light themes and a light image for dark themes, saved in same folder, for emails. Light is named <code>filename.png</code>. The dark image needs to be named <code>filename.png_dark.png</code>. Define your light image in "Settings" and your dark image is automatically applied to light themes. No need to define a dark image anywhere. It is hard coded that way.</li>
+  <li>Edit <strong>Templates</strong> under <strong>Admin → Templates</strong>:</li>
+  <li>Placeholders: <code>{{site_name}}</code>, <code>{{subject}}</code>, <code>{{name}}</code>, <code>{{email}}</code>, <code>{{message}}</code>, <code>{{ip}}</code>, etc.</li>
+  <li>Auto‑reply uses the <strong>Auto Reply</strong> template and the selected theme.</li>
+  <li>Test from <strong>Admin → SMTP Test</strong>. Tests respect the selected theme.</li>
+</ul>
+</div>
+<div class="card">
+	<h2>6) Security features</h2>
+<ul>
+  <li><strong>CSRF</strong> on all forms (server‑verified).</li>
+  <li><strong>Rate limiting</strong> (minimum seconds between sends per IP/email) — configure in <strong>Security → Rate Limit</strong>.</li>
+  <li><strong>Audit log</strong>: every block/allow/failed‑captcha/CSRF shows up in <strong>Security → Recent Security Events</strong>.</li>
+  <li><strong>Blocklist</strong>: block IPs (single or CIDR). Unblock from the same page.</li>
+  <li><strong>Firewall feed</strong>: expose your blocklist as a tokenized endpoint:</li>
+  <li>Plain list: <code>kontact/api/blocklist_feed.php?token=...&amp;format=plain</code></li>
+  <li>ipset: <code>kontact/api/blocklist_feed.php?token=...&amp;format=ipset</code></li>
+  <li>Point your Control Panel or other firewalls to the URL. Rotate token in <strong>Security → Firewall Feed</strong>.</li>
+</ul>
+</div>
+<div class="card">
+	<h2>7) Admin Pages</h2>
+<h3>Messages</h3>
+<ul>
+  <li>Filter by text/email/IP/date.</li>
+  <li><strong>Bulk delete</strong> pulldown:</li>
+  <li><strong>Current page</strong> — deletes only the rows you’re looking at</li>
+  <li><strong>Current filter (all pages)</strong> — deletes <em>everything that matches your filters</em></li>
+  <li><strong>Older than 7/14/30/90 days</strong></li>
+  <li><strong>All messages</strong></li>
+  <li><strong>Export CSV</strong> of the current filter.</li>
+</ul>
+<h3>Security</h3>
+<ul>
+  <li><strong>Recent Security Events</strong> table with actions.</li>
+  <li><strong>Bulk delete</strong> pulldown:</li>
+  <li><strong>Current page</strong> — deletes the rows currently listed</li>
+  <li><strong>Older than 7/14/30/90 days</strong></li>
+  <li><strong>All events</strong></li>
+  <li><em>(If you add filters later, “Current filter (all pages)” will delete matching events across pages.)</em></li>
+  <li><strong>Blocklist</strong> management, <strong>Firewall Feed</strong> token regen, <strong>Rate‑limit</strong> settings.</li>
+</ul>
+</div>
+<div class="card">
+	<h2>8) Maintenance (optional but recommended)</h2>
+<p>You can enable auto‑pruning via cron. Example: delete audit events older than 30 days and messages older than 90 days daily.</p>
+<div class="code-block"><pre><code># run daily at 02:10
+10 2 * * * /usr/bin/php -d detect_unicode=0 /path/to/webroot/kontact/tools/maintenance.php --prune --audit-older=30 --messages-older=90 &gt;&gt; /var/log/kontact_maint.log 2&gt;&amp;1</code></pre></div>
+<p>The maintenance tool also supports manual actions from the <strong>Maintenance</strong> tab (delete &gt;7d, rotate tokens, etc.)</p>
+</div>
+<div class="card">
+	<h2>9) Hardening checklist</h2>
+<ul>
+  <li>Force HTTPS; set <code>session.cookie_secure=1</code> and <code>session.cookie_samesite=Lax</code>.</li>
+  <li>Restrict <strong>Admin</strong> location with HTTP auth or IP allowlist if possible.</li>
+  <li>Keep <code>storage/secret/</code> non‑web‑readable.</li>
+  <li>Use an SMTP provider that enforces TLS and DKIM/SPF/DMARC on your domain.</li>
+  <li>Apply least‑privileged DB user credentials (only this schema).</li>
+</ul>
+</div>
+<div class="card">
+	<h2>10) Troubleshooting</h2>
+<ul>
+  <li><strong>CSRF mismatch</strong>: ensure the <code>csrf</code> hidden field is present and you’re not posting across hosts.</li>
+  <li><strong>Captcha missing token</strong>: verify the <code>enterprise.js</code> loader is present and <code>recaptcha_enterprise.js</code> runs before submit.</li>
+  <li><strong>Invalid key type / 403</strong>: double‑check that you created an <strong>Enterprise</strong> site key and the API key has the correct API enabled &amp; restrictions.</li>
+  <li><strong>Theme not applied</strong>: confirm theme selection in <strong>Admin → Settings → Email</strong>; SMTP test page uses the selected theme.</li>
+  <li><strong>Auto‑reply not sent</strong>: check rate‑limit throttling and template enable/checkbox in settings.</li>
+</ul>
+</div>
+<div class="card">
+	<h2>11) Upgrading</h2>
+<ul>
+  <li>Replace files, keep <code>storage/</code> and your database.</li>
+  <li>Re‑run <code>kontact/admin/setup.php</code> only if schema changes are documented in <code>sql/migrations/</code>.</li>
+  <li>Always back up the DB before upgrades.</li>
+</ul>
+</div>
+<div class="card">
+	<h2>12) Logs</h2>
+<p>The <strong>Logs</strong> tab lists files under <code>storage/logs/</code> and lets you:</p>
+<ul>
+  <li>View the last N lines (default 500), with simple text search.</li>
+  <li>Download the raw log file.</li>
+  <li>Clear a log (truncates non-gz files).</li>
+</ul>
+<p>Typical files include: <code>recaptcha.log</code>, <code>mailer.log</code>, <code>security.log</code>, and rotated variants like <code>*.log.1</code>.</p>
+<p>Rotation and retention are managed by <strong>Maintenance</strong> (see that section).</p></div>
+<div class="card">
+	<h2>13) License</h2>
+<p>GPL (see <code>LICENSE</code>). PRs welcome.</p>
+</div>
+</div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,5 @@
+UPGRADE NOTES — PASTE AS PLAIN TEXT
+- Added full admin panel with settings (site/meta, recipients mode+JSON, recaptcha, theme).
+- Added API + JS to auto-populate <select name="recipient"> for multiple recipients.
+- Setup now self-deletes and links to login on success.
+- Config file simplified to safe defaults (no touching $_POST).

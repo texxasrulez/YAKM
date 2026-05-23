@@ -1,0 +1,6 @@
+SMTP TEST BUTTON — PASTE AS PLAIN TEXT
+
+A "Send SMTP Test" button is now available in Admin → Settings (SMTP section).
+It sends a multipart test message to the Webmaster using the current SMTP settings.
+- If SMTP is disabled or fails, it uses the mail() fallback.
+- The result page confirms success/failure and shows the target address and SMTP host:port used.

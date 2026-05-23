@@ -1,0 +1,20 @@
+<!-- in <head> -->
+<script src="kontact/assets/js/multiple_recipients.js"></script>
+<script src="kontact/assets/js/form_tokens.js"></script>
+
+<!-- in <body> -->
+<form action="kontact/send_mail.php" method="post" id="kontact-form" novalidate>
+  <label for="recipient">Choose Recipient</label>
+  <select name="recipient_id" id="recipient" required></select>
+
+  <input type="text"   name="name"    id="name"    placeholder="Name (Required)"    required>
+  <input type="email"  name="email"   id="email"   placeholder="Email (Required)"   required>
+  <input type="text"   name="subject" id="subject" placeholder="Subject (Required)" required>
+  <textarea name="message" id="message" placeholder="Message (Required)" required></textarea>
+
+  <!-- Optional while testing: remove or keep, server will verify anyway -->
+  <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY_FROM_GOOGLE"></div>
+
+  <input type="submit" value="Send Message">
+</form>
+

@@ -1,0 +1,16 @@
+ANTI-BOT — PASTE AS PLAIN TEXT
+
+1) Add the injector to your public page <head>:
+   <script src="kontact/assets/js/anti_bot.js"></script>
+
+2) What it does:
+   - Injects a hidden text input 'hp' (honeypot). Real users never fill it.
+   - Injects a hidden 'kt' timestamp when the form loads.
+
+3) Server checks in send_mail.php:
+   - If 'hp' is non-empty → redirect to /spammer.html
+   - If submit occurs faster than MIN_SUBMIT_SECONDS (Admin → Settings → Anti-bot) → redirect to /spammer.html
+
+4) Notes:
+   - If the hidden fields are missing (JS disabled), no blocking occurs.
+   - You can set MIN_SUBMIT_SECONDS=0 to disable the timing check.

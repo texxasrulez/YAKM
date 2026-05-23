@@ -1,0 +1,278 @@
+{
+  "source": "en_US.inc", 
+  "processed": [
+    {
+      "locale": "tr_TR", 
+      "skipped_existing": 233, 
+      "deepl_code": "TR", 
+      "file": "localization/tr_TR.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "pt_PT", 
+      "skipped_existing": 229, 
+      "deepl_code": "PT-PT", 
+      "file": "localization/pt_PT.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "vi_VN", 
+      "skipped_existing": 232, 
+      "deepl_code": "VI", 
+      "file": "localization/vi_VN.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "th_TH", 
+      "skipped_existing": 236, 
+      "deepl_code": "TH", 
+      "file": "localization/th_TH.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "id_ID", 
+      "skipped_existing": 227, 
+      "deepl_code": "ID", 
+      "file": "localization/id_ID.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "hu_HU", 
+      "skipped_existing": 224, 
+      "deepl_code": "HU", 
+      "file": "localization/hu_HU.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "ja_JP", 
+      "skipped_existing": 237, 
+      "deepl_code": "JA", 
+      "file": "localization/ja_JP.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "lt_LT", 
+      "skipped_existing": 234, 
+      "deepl_code": "LT", 
+      "file": "localization/lt_LT.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "sl_SI", 
+      "skipped_existing": 231, 
+      "deepl_code": "SL", 
+      "file": "localization/sl_SI.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "es_AR", 
+      "skipped_existing": 237, 
+      "deepl_code": "AR", 
+      "file": "localization/es_AR.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "es_ES", 
+      "skipped_existing": 226, 
+      "deepl_code": "ES", 
+      "file": "localization/es_ES.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "en_GB", 
+      "skipped_existing": 8, 
+      "deepl_code": "EN-GB", 
+      "file": "localization/en_GB.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "bg_BG", 
+      "skipped_existing": 232, 
+      "deepl_code": "BG", 
+      "file": "localization/bg_BG.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "pt_BR", 
+      "skipped_existing": 228, 
+      "deepl_code": "PT-BR", 
+      "file": "localization/pt_BR.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "zh_TW", 
+      "skipped_existing": 235, 
+      "deepl_code": "ZH-HANT", 
+      "file": "localization/zh_TW.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "cs_CZ", 
+      "skipped_existing": 223, 
+      "deepl_code": "CS", 
+      "file": "localization/cs_CZ.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "sk_SK", 
+      "skipped_existing": 226, 
+      "deepl_code": "SK", 
+      "file": "localization/sk_SK.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "zh_CN", 
+      "skipped_existing": 236, 
+      "deepl_code": "ZH-HANS", 
+      "file": "localization/zh_CN.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "sv_SE", 
+      "skipped_existing": 225, 
+      "deepl_code": "SV", 
+      "file": "localization/sv_SE.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "he_IL", 
+      "skipped_existing": 233, 
+      "deepl_code": "HE", 
+      "file": "localization/he_IL.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "ar_SA", 
+      "skipped_existing": 237, 
+      "deepl_code": "AR", 
+      "file": "localization/ar_SA.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "fr_FR", 
+      "skipped_existing": 208, 
+      "deepl_code": "FR", 
+      "file": "localization/fr_FR.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "fi_FI", 
+      "skipped_existing": 227, 
+      "deepl_code": "FI", 
+      "file": "localization/fi_FI.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "it_IT", 
+      "skipped_existing": 225, 
+      "deepl_code": "IT", 
+      "file": "localization/it_IT.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "et_EE", 
+      "skipped_existing": 226, 
+      "deepl_code": "ET", 
+      "file": "localization/et_EE.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "uk_UA", 
+      "skipped_existing": 233, 
+      "deepl_code": "UK", 
+      "file": "localization/uk_UA.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "nl_NL", 
+      "skipped_existing": 223, 
+      "deepl_code": "NL", 
+      "file": "localization/nl_NL.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "ar", 
+      "skipped_existing": 237, 
+      "deepl_code": "AR", 
+      "file": "localization/ar.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "en_US", 
+      "skipped_existing": 0, 
+      "deepl_code": "EN-US", 
+      "file": "localization/en_US.inc", 
+      "translated_count": 0
+    }, 
+    {
+      "locale": "lv_LV", 
+      "skipped_existing": 232, 
+      "deepl_code": "LV", 
+      "file": "localization/lv_LV.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "el_GR", 
+      "skipped_existing": 229, 
+      "deepl_code": "EL", 
+      "file": "localization/el_GR.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "ro_RO", 
+      "skipped_existing": 223, 
+      "deepl_code": "RO", 
+      "file": "localization/ro_RO.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "ru_RU", 
+      "skipped_existing": 232, 
+      "deepl_code": "RU", 
+      "file": "localization/ru_RU.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "en_CA", 
+      "skipped_existing": 6, 
+      "deepl_code": "EN-US", 
+      "file": "localization/en_CA.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "da_DK", 
+      "skipped_existing": 220, 
+      "deepl_code": "DA", 
+      "file": "localization/da_DK.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "ko_KR", 
+      "skipped_existing": 233, 
+      "deepl_code": "KO", 
+      "file": "localization/ko_KR.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "de_DE", 
+      "skipped_existing": 205, 
+      "deepl_code": "DE", 
+      "file": "localization/de_DE.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "pl_PL", 
+      "skipped_existing": 224, 
+      "deepl_code": "PL", 
+      "file": "localization/pl_PL.inc", 
+      "translated_count": 20
+    }, 
+    {
+      "locale": "nb_NO", 
+      "skipped_existing": 224, 
+      "deepl_code": "NB", 
+      "file": "localization/nb_NO.inc", 
+      "translated_count": 20
+    }
+  ]
+}

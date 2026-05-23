@@ -1,0 +1,33 @@
+TEMPLATES: Seed + Theme Preview
+- The Templates page now seeds three example templates (auto_reply_ack, notify_webmaster_basic, notify_webmaster_rich) if the table is empty.
+- Each echoes user data using {{placeholders}} like {{name}}, {{email}}, {{subject}}, {{message_html}}.
+- Preview renders the template INSIDE your currently selected email theme.
+
+MESSAGES: Search / CSV
+- At the top of Messages you can filter by text, email, IP, and date range (if your table has created_at).
+- "Export CSV" downloads the filtered results.
+- CSV export guards against formula injection.
+
+SECURITY: Rate Limits + Alerts
+- Configure in Admin → Security:
+  * Enable
+  * Window (minutes)
+  * Max submissions per IP
+  * Email webmaster on violation
+- Enforcement hook is provided in /kontact/lib/security_runtime.php.
+
+INTEGRATION (one-time) — Hook rate limit into send_mail.php
+1) Open: /kontact/send_mail.php
+2) After the line that includes bootstrap, add these two lines:
+   require_once __DIR__ . '/lib/security_runtime.php';
+   if (!\Kontact\enforce_rate_limit_or_abort($_SERVER)) { exit; }
+
+   Example patch location (search for this line):
+     require_once __DIR__ . '/lib/bootstrap.php';
+   Insert the two lines immediately after it.
+
+3) Done. Every submission logs an audit "form_submit". When over the threshold, it logs "rate_limit_block" and returns HTTP 429 (and optionally emails the webmaster).
+
+NOTES
+- All new tables created with CREATE TABLE IF NOT EXISTS.
+- No inline <style> tags added to admin pages; theme rendering for emails remains in the theme files.
